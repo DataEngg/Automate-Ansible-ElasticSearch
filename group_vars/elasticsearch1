@@ -1,0 +1,7 @@
+---
+ip1: 66.228.45.15
+node: node1
+ip2: 50.116.53.237
+elasticsearch_script_inline: true
+elasticsearch_script_indexed: true
+value: 1

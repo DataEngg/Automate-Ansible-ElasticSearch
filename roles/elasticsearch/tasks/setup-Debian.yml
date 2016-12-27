@@ -1,0 +1,29 @@
+---
+- name: pycurl
+  apt: name=python-pycurl state=present
+
+- name: Add repo
+  apt_repository: repo='ppa:webupd8team/java' state=present update_cache=yes
+
+- name: Autoaccept license for Java
+  action: shell echo oracle-java8-installer shared/accepted-oracle-license-v1-1 select true | sudo /usr/bin/debconf-set-selections
+
+- name: Update APT package cache
+  action: apt update_cache=yes
+
+- name: java
+  apt: name=oracle-java8-installer state=present update_cache=yes
+
+- name: Add Elasticsearch apt key.
+  apt_key:
+    url: https://packages.elastic.co/GPG-KEY-elasticsearch
+    state: present
+
+- name: Add Elasticsearch repository.
+  apt_repository:
+    repo: 'deb http://packages.elastic.co/elasticsearch/2.x/debian stable main'
+    state: present
+    update_cache: yes
+
+- name: Install Elasticsearch.
+  apt: pkg=elasticsearch state=present
